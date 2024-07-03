@@ -16,10 +16,27 @@
         .card-header {
             background-color: lightblue;
             color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
         }
         .btn-custom {
             background-color: #ff7f50;
             color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .btn-custom:hover {
+            background-color: #e64a19;
+        }
+        label {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -31,47 +48,59 @@
             </div>
             <div class="card-body">
                 <form action="{{ route('appointment.update', $booking->id ) }}" method="post">
-                    @method('put')
                     @csrf
+                    @method('put')
+                   
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input value= "{{old('name',$booking->name)}}" type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required>
+                        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $booking->name) }}" required>
                         @error('name')
-                        <p class="invalid-feedback">{{ $message }}</p>
+                            <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
+
                     <div class="form-group">
                         <label for="appointment_date">Appointment Date</label>
-                        <input value="{{old('appointment_date',$booking->appointment_date)}}" type="datetime-local" class="form-control @error('appointment_date') is-invalid @enderror" id="appointment_date" name="appointment_date" required>
+                        <input type="datetime-local" id="appointment_date" name="appointment_date" class="form-control @error('appointment_date') is-invalid @enderror" value="{{ old('appointment_date', \Carbon\Carbon::parse($booking->appointment_date)->format('Y-m-d\TH:i')) }}" required>
                         @error('appointment_date')
-                        <p class="invalid-feedback">{{ $message }}</p>
+                            <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="duration">Duration (minutes)</label>
+                        <input type="number" id="duration" name="duration" class="form-control @error('duration') is-invalid @enderror" value="{{ old('duration', $booking->duration) }}" required>
+                        @error('duration')
+                            <p class="invalid-feedback">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input value="{{old('phone',$booking->phone)}}" type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" pattern="[0-9]{10,}" placeholder="Phone number" value="{{ old('phone') }}" required>
+                        <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone', $booking->phone) }}" pattern="[0-9]{10,}" placeholder="Phone number" required>
                         @error('phone')
-                        <p class="invalid-feedback">{{ $message }}</p>
+                            <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
                     
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
+                        <select id="status" name="status" class="form-control @error('status') is-invalid @enderror" required>
+                            <option value="pending" {{ old('status', $booking->status) == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="confirmed" {{ old('status', $booking->status) == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                            <option value="completed" {{ old('status', $booking->status) == 'completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="cancelled" {{ old('status', $booking->status) == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
-
                         @error('status')
-                        <p class="invalid-feedback">{{ $message }}</p>
+                            <p class="invalid-feedback">{{ $message }}</p>
                         @enderror
                     </div>
+
                     <div class="form-group">
-                        <label for="reason">Reason</label>
-                        <input value="{{old('Reason',$booking->description)}}"type="text" class="form-control" id="reason" name="reason">
-                    </div>
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" class="form-control">{{ old('description', $booking->description) }}</textarea>
+                    </div>                    
+
                     <button type="submit" class="btn btn-custom">Update Appointment</button>
                 </form>
             </div>

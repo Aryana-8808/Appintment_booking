@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth; // Include Auth facade for authentication
 use Illuminate\Support\Facades\Hash;
+use Google\Client as GoogleClient;
+use Google\Service\Calendar;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -88,5 +91,43 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('bookings.index');
     }
+
+    public function syncWithGoogleCalendar(Request $request)
+    {
+        try {
+            // Initialize Google Client
+            $client = new GoogleClient();
+            $client->setApplicationName('Your Application Name');
+            $client->setScopes(Calendar::CALENDAR_EVENTS);
+            $client->setAuthConfig(storage_path('app/calendar_credentials.json')); // Path to your credentials file
+            $client->setAccessType('offline');
+
+            // Check if access token is expired, refresh if needed
+            if ($client->isAccessTokenExpired()) {
+                $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
+                file_put_contents(storage_path('app/calendar_credentials.json'), json_encode($client->getAccessToken()));
+            }
+
+            // Example: Fetch events from Google Calendar
+            $service = new Calendar($client);
+            $calendarId = 'primary'; // Use 'primary' for the primary calendar of the authenticated user
+            $events = $service->events->listEvents($calendarId);
+
+            // Process events as needed
+            foreach ($events->getItems() as $event) {
+                // Example: Process each event
+                $eventSummary = $event->getSummary();
+                // Handle event details as required
+            }
+
+            // Example: Redirect back to dashboard or specific route
+            return redirect()->route('account.dashboard')->with('success', 'Google Calendar synchronized successfully.');
+
+        } catch (Exception $e) {
+            // Handle Google Calendar API exceptions
+            return redirect()->route('account.dashboard')->with('error', 'Error syncing with Google Calendar: ' . $e->getMessage());
+        }
+    }
+
 
 }

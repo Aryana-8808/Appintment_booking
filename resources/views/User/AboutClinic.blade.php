@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schedule Your Appointment Today!</title>
+  <title>About Us</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    html, body {
-      height: 100vh;
+    body {
+      font-family: serif;
       margin: 0;
       padding: 0;
-      font-family: serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     .navbar {
       background-color: lightblue;
@@ -22,57 +24,21 @@
       text-decoration: none;
       font-weight: bold;
       padding: 10px 15px;
-      font-size: 23px; /* Change the font size here */
+      font-size: 23px;
     }
     .navbar a:hover {
+        border-radius: 10%;
       background-color: #ff7f50;
-    }
-
-    .hero-section {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 93vh;
-      color: #ff7f50;
-      padding: 20px;
-      z-index: 1;
-    }
-    
-    .hero-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('/images/bg.jpg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      opacity: 0.5; /* Adjust the opacity to your preference */
-      z-index: -1;
-    }
-    .hero-title {
-      font-size: 4rem;
-      margin-bottom: 20px;
-    }
-    .hero-description {
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-    }
-    .btn-primary {
-      background-color: #ff7f50;
-      border-color: #ff7f50;
     }
     .info-section {
       padding: 50px 20px;
       background-color: #f8f9fa;
+      flex: 1;
     }
     .info-section h2 {
       text-align: center;
       margin-bottom: 30px;
+      color: #ff7f50;
     }
     .info-card {
       background: white;
@@ -81,32 +47,29 @@
       margin: 10px;
       border-radius: 10px;
       overflow: hidden;
-      justify-content: center;
       transition: transform 0.3s;
-    }
-    .info-card {
-      background: white;
-      border: none;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin: 10px;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.3s;
-      
     }
     .info-card:hover {
       transform: translateY(-10px);
     }
-    .info-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-    }
     .info-card-body {
       padding: 20px;
+      
+    }
+    .info-card-title {
+      font-size: 1.5rem;
+      color: #343a40;
+    }
+    .info-card-text {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+    .info-card img {
+      width: 200%;
+      height: auto;
+      max-width: 800px; /* Set max-width for the image */
+      margin: 20px auto 0 auto; /* Center the image */
+      display: block; /* Ensure the image is block-level */
     }
 
     .contact-form {
@@ -118,27 +81,20 @@
       background-color: #f0f0f0; /* Light background color for contact form */
     }
     .contact-form h2 {
-      /* text-align: center; */
-      margin-left: 
+      text-align: center;
+      
       margin-bottom: 30px;
       color: #ff7f50;
     }
 
     .slogan {
       display: flex;
-      /* justify-content: center; */
-      /* align-items: center; */
-      
-      margin-left: -20px; /* Adjust the value as needed */
+      justify-content: center;
+      align-items: center;
       font-size: 1.2rem;
-      color: #6c757d;
+      /* color: #6c757d; */
       padding: 20px;
     }
-
-    .para{
-      color: #6c757d;
-    }
-
     .form-group label {
       color: #343a40;
     }
@@ -151,13 +107,13 @@
       border-color: #e5673d;
     }
 
+
     .footer {
       background-color: #343a40;
       color: white;
       text-align: center;
       padding: 20px;
       position: relative;
-      bottom: 0;
       width: 100%;
     }
   </style>
@@ -165,55 +121,42 @@
 <body>
   <nav class="navbar">
     <div class="container">
-      <a href="#">Home</a>
-      <a href="{{ route('aboutclinic') }}">About Us</a>
+      <a href="{{ route('bookings.index') }}">Home</a>
+      <a href="#about">About Us</a>
       <a href="#contact">Contact</a>
-      <a href="{{ route('account.login') }}">Login </a>
+      <a href="{{ route('account.login') }}">Login</a>
     </div>
   </nav>
 
-  <section class="hero-section">
-    <h1 class="hero-title">Schedule Your Appointment Today!</h1>
-    <p class="hero-description"><b>Avoid the hassle and book your appointment with just one click! Experience convenience like never before.</b></p>
-    <a href="{{ route('account.login') }}" class="btn btn-primary btn-lg">Book Now</a>
-  </section>
-
-  {{-- <section class="info-section" id="about">
+  <section class="info-section" id="about">
     <div class="container">
       <h2>About Us</h2>
       <div class="row">
-        <div class="col-md-4">
-          <a href="{{ route('aboutclinic') }}" class="card info-card">
+        <div class="col-md-12">
           <div class="card info-card">
-            <img src="/images/clinic.avif" alt="Clinic">
+            <h1 style="text-align: center; color: #ff7f50;">Welcome to The CalenDoc</h1>
+            <img src="/images/AboutClinic.avif" alt="Our Clinic">
             <div class="card-body info-card-body">
-              <h5 class="card-title">Our Clinic</h5>
-              <p class="card-text">State-of-the-art facilities with experienced doctors and staff.</p>
-            </div>
-          </a>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card info-card">
-            <img src="/images/tests.jpg" alt="Tests">
-            <div class="card-body info-card-body">
-              <h5 class="card-title">Medical Tests</h5>
-              <p class="card-text">Discover the wide range of tests we offer at its best price.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card info-card">
-            <img src="/images/healthservice.jpg" alt="Health">
-            <div class="card-body info-card-body">
-              <h5 class="card-title">Health Services</h5>
-              <p class="card-text">Comprehensive health services for you and your family.</p>
+              <h3 class="info-card-title" style="text-color: black;">Our Clinic</h3>
+              <p class="info-card-text" style="color: black;">State-of-the-art facilities with experienced doctors and staff. At CalenDoc, experience cutting-edge care with state-of-the-art facilities, a team of experienced doctors and staff, comprehensive health services encompassing routine checkups to specialized treatments, and extensive medical testing for accurate diagnoses – all under one roof for a seamless and personalized healthcare journey.</p>
+              <h3>Taking Care of You: A Range of Comprehensive Services</h3>
+              <p>At CalenDoc, we understand that your health needs are unique. That's why we offer a wide range of services designed to address your individual concerns and keep you feeling your best.</p>
+              <p>From routine check-ups to specialized treatments, our team of experienced healthcare professionals is dedicated to provide our patient with the best care!</p>
+              <h3>Here's what we offer:</h3>
+              <p>We offer a wide range of services to address your individual needs:</p>
+
+              <ul>
+                <li>General Checkups: Schedule regular checkups to stay on top of your health and identify any potential issues early on.</li>
+                <li>Preventative Care: We believe prevention is key. We offer services like immunizations, screenings, and lifestyle counseling to help you stay healthy and avoid future problems.</li>
+                <li>Chronic Disease Management: Living with a chronic condition can be challenging. We offer comprehensive management plans to help you control your condition and improve your quality of life.</li>
+              </ul>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section> --}}
+  </section>
 
   <section class="contact-form" id="contact">
     <div class="container">
@@ -222,9 +165,7 @@
         <div class="col-md-6">
           <div class="slogan">
             <p>Your health is our priority. Reach out to us for world-class medical care.</p>
-          </div>
-          <div class="para">
-            <p style="text-decoration-color: #6c757d">You can directly Mail us at: calendoc@gmail.com</p>
+            
           </div>
         </div>
         <div class="col-md-6">
@@ -255,7 +196,5 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
-
 </html>

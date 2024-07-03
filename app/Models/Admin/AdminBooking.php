@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
-class Booking extends Model
+class AdminBooking extends Model
 {
     use HasFactory;
 
@@ -16,16 +15,9 @@ class Booking extends Model
         'phone',
         'status',
         'description',
-        'duration',
-        'slot_id',
-        'user_id'
+        'duration', // Add duration to fillable
     ];
 
-    // protected $dates = [
-    //     'appointment_date',
-    // ];
-
-    // Accessor for the calculated end time
     public function getEndTimeAttribute()
     {
         return Carbon::parse($this->appointment_date)->addMinutes($this->duration);

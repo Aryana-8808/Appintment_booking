@@ -7,6 +7,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminBookingsController;
 use App\Http\Controllers\admin\AdminDashboardController;
 
 
@@ -53,14 +54,36 @@ Route::group(['prefix'=>'admin'], function(){
     });
 });
 
+Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function() {
+    Route::get('/appointments', [AdminBookingsController::class, 'index'])->name('admin.dashboard');
+    Route::get('/appointments/create', [AdminBookingsController::class, 'create'])->name('admin.create');
+    Route::post('/appointments', [AdminBookingsController::class, 'store'])->name('admin.store');
+    Route::get('/appointments/{id}/edit', [AdminBookingsController::class, 'edit'])->name('admin.appointments.edit');
+    Route::put('/appointments/{id}', [AdminBookingsController::class, 'update'])->name('admin.update');
+    Route::delete('/appointments/{id}', [AdminBookingsController::class, 'destroy'])->name('admin.appointments.destroy');
+});
+
+
     // Routes for BookingsController
     Route::get('/bookings', [BookingsController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/create', [BookingsController::class, 'create'])->name('bookings.create');
     Route::post('/bookings', [BookingsController::class, 'store'])->name('bookings.store');
     Route::get('/dashboard', [BookingsController::class, 'appointment'])->name('bookings.appointment');
-    Route::get('/bookings/{appointment}/edit', [BookingsController::class, 'edit'])->name('appointment.edit');
+    Route::get('/bookings/{id}/edit', [BookingsController::class, 'edit'])->name('appointment.edit');
     Route::put('/bookings/{appointment}', [BookingsController::class, 'update'])->name('appointment.update');
     Route::delete('/bookings/{appointment}', [BookingsController::class, 'destroy'])->name('appointment.destroy');
     
     Route::get('/doctors', [DoctorController::class, 'main'])->name('doctors.index');
+
+    Route::get('/bookings/show', [BookingsController::class, 'show'])->name('bookings.show');
+
+    Route::get('/sync/google/calendar', 'LoginController@syncWithGoogleCalendar')->name('sync.google.calendar');
+
+    Route::get('/about', [BookingsController::class, 'about'])->name('aboutclinic');
+
+
+
+
+
+
     

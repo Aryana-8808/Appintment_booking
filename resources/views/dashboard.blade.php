@@ -115,9 +115,9 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('doctors.index') }}" class="btn doctor-btn">Doctors</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('bookings.create') }}" class="btn book-now-btn">Book Now</a>
                         </li>
@@ -166,6 +166,7 @@
                             <th>Name</th>
                             <th>Appointment Date</th>
                             <th>Phone</th>
+                            <th>Duration</th>
                             <th>Status</th>
                             <th>Description</th>
                             <th>Modify Appointment</th>
@@ -179,6 +180,7 @@
                                     <td>{{ $appointment->name }}</td>
                                     <td>{{ $appointment->appointment_date }}</td>
                                     <td>{{ $appointment->phone }}</td>
+                                    <td>{{ $appointment->duration }}</td>
                                     <td>{{ $appointment->status }}</td>
                                     <td>{{ $appointment->description }}</td>
                                     <td>

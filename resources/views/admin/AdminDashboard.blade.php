@@ -170,7 +170,7 @@
                         </li>
                         <!-- "Book Now" button in the navbar -->
                         <li class="nav-item">
-                            <a href="{{ route('bookings.create') }}" class="nav-link book-now-btn">Book Now</a>
+                            <a href="{{ route('admin.create') }}" class="nav-link book-now-btn">Book Now</a>
                         </li>
                         <!-- User account section with "Logout" button -->
                         <li class="nav-item">
@@ -216,6 +216,7 @@
                             <th>Name</th>
                             <th>Appointment Date</th>
                             <th>Phone</th>
+                            <th>Duration (in minutes)</th>
                             <th>Status</th>
                             <th>Description</th>
                             <th>Modify Appointment</th>
@@ -229,12 +230,13 @@
                             <td>{{ $appointment->name }}</td>
                             <td>{{ $appointment->appointment_date }}</td>
                             <td>{{ $appointment->phone }}</td>
+                            <td>{{ $appointment->duration }} minutes</td>
                             <td>{{ $appointment->status }}</td>
                             <td>{{ $appointment->description }}</td>
                             <td>
-                                <a href="{{ route('appointment.edit', $appointment->id) }}" class="btn btn-custom">Edit</a>
+                                <a href="{{ route('admin.appointments.edit', $appointment->id) }}" class="btn btn-custom">Edit</a>
                                 <a href="#" onclick="deleteAppointment({{ $appointment->id }})" class="btn btn-danger">Cancel</a>
-                                <form id="delete-appointment-form-{{ $appointment->id }}" action="{{ route('appointment.destroy', $appointment->id )}}" method="post" style="display: none;">
+                                <form id="delete-appointment-form-{{ $appointment->id }}" action="{{ route('admin.appointments.destroy', $appointment->id )}}" method="post" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
