@@ -212,7 +212,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            {{-- <th>Id</th> --}}
                             <th>Name</th>
                             <th>Appointment Date</th>
                             <th>Phone</th>
@@ -226,7 +226,7 @@
                         @if($appointments != NULL)
                         @forelse ($appointments as $appointment)
                         <tr>
-                            <td>{{ $appointment->id }}</td>
+                            {{-- <td>{{ $appointment->id }}</td> --}}
                             <td>{{ $appointment->name }}</td>
                             <td>{{ $appointment->appointment_date }}</td>
                             <td>{{ $appointment->phone }}</td>

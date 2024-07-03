@@ -59,6 +59,27 @@
                         @enderror
                     </div>
 
+                    {{-- <div class="form-group">
+                        <label for="slot_id">Select Time Slot</label>
+                        <select class="form-control @error('slot_id') is-invalid @enderror" id="slot_id" name="slot_id" required>
+                            @csrf
+                            @foreach($availableSlots as $slot)
+                                @php
+                                    $class = $slot->available ? '' : 'unavailable';
+                                    if (session('error') && isset($slot->id) && $slot->id == old('slot_id')) {
+                                        $class .= ' text-danger'; // Add red color for suggested time slot
+                                    }
+                                @endphp
+                                <option value="{{ $slot->id }}" data-start="{{ $slot->start_time }}" data-end="{{ $slot->end_time }}" class="{{ $class }}">
+                                    {{ $slot->start_time }} - {{ $slot->end_time }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('slot_id')
+                            <p class="invalid-feedback">{{ $message }}</p>
+                        @enderror
+                    </div> --}}
+
                     <div class="form-group">
                         <label for="appointment_date">Appointment Date</label>
                         <input type="datetime-local" id="appointment_date" name="appointment_date" class="form-control @error('appointment_date') is-invalid @enderror" value="{{ old('appointment_date', \Carbon\Carbon::parse($booking->appointment_date)->format('Y-m-d\TH:i')) }}" required>

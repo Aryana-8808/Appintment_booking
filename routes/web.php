@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function() {
     Route::get('/bookings/{id}/edit', [BookingsController::class, 'edit'])->name('appointment.edit');
     Route::put('/bookings/{appointment}', [BookingsController::class, 'update'])->name('appointment.update');
     Route::delete('/bookings/{appointment}', [BookingsController::class, 'destroy'])->name('appointment.destroy');
+    Route::post('/waitlist', [BookingsController::class, 'waitlist'])->name('bookings.waitlist');
     
     Route::get('/doctors', [DoctorController::class, 'main'])->name('doctors.index');
 
@@ -80,6 +81,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function() {
     Route::get('/sync/google/calendar', 'LoginController@syncWithGoogleCalendar')->name('sync.google.calendar');
 
     Route::get('/about', [BookingsController::class, 'about'])->name('aboutclinic');
+
+    Route::get('/appointments/{id}/edit', [BookingsController::class, 'edit'])->name('appointment.edit');
+
+
+    Route::put('/appointments/{id}/cancel', [BookingsController::class, 'cancelBooking'])->name('appointment.cancel');
+    Route::get('waitlist/{id}/add', [WaitlistController::class, 'addToWaitlist'])->name('waitlist.add');
+
+    Route::post('/waitlist/{id}/add', [BookingsController::class, 'addToWaitlist'])->name('waitlist.add');
+    Route::put('/appointments/{id}/cancel', [BookingsController::class, 'cancelBooking'])->name('appointment.cancel');
+
+
+
 
 
 

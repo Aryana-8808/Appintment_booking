@@ -115,7 +115,11 @@
                         <label for="description">Description (optional)</label>
                         <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                     </div>
+                    @if (session('error'))
+                    <button type="submit" class="btn btn-custom">Join Waitlist</button>
+                    @else
                     <button type="submit" class="btn btn-custom">Create Appointment</button>
+                @endif
                 </form>
             </div>
         </div>

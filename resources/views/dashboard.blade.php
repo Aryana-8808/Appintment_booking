@@ -115,9 +115,6 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('doctors.index') }}" class="btn doctor-btn">Doctors</a>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('bookings.create') }}" class="btn book-now-btn">Book Now</a>
                         </li>
