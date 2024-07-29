@@ -165,9 +165,9 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
                         <!-- Link to Doctors List -->
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('doctors.index') }}" class="nav-link book-now-btn">Doctors</a>
-                        </li>
+                        </li> --}}
                         <!-- "Book Now" button in the navbar -->
                         <li class="nav-item">
                             <a href="{{ route('admin.create') }}" class="nav-link book-now-btn">Book Now</a>

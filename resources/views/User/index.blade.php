@@ -178,7 +178,7 @@
     <a href="{{ route('account.login') }}" class="btn btn-primary btn-lg">Book Now</a>
   </section>
 
-  {{-- <section class="info-section" id="about">
+  <section class="info-section" id="about">
     <div class="container">
       <h2>About Us</h2>
       <div class="row">
@@ -213,7 +213,7 @@
         </div>
       </div>
     </div>
-  </section> --}}
+  </section>
 
   <section class="contact-form" id="contact">
     <div class="container">

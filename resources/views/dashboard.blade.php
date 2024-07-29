@@ -165,7 +165,7 @@
                             <th>Phone</th>
                             <th>Duration</th>
                             <th>Status</th>
-                            <th>Description</th>
+                            {{-- <th>Description</th> --}}
                             <th>Modify Appointment</th>
                         </tr>
                     </thead>
@@ -178,7 +178,7 @@
                                     <td>{{ $appointment->appointment_date }}</td>
                                     <td>{{ $appointment->phone }}</td>
                                     <td>{{ $appointment->duration }}</td>
-                                    <td>{{ $appointment->status }}</td>
+                                    {{-- <td>{{ $appointment->status }}</td> --}}
                                     <td>{{ $appointment->description }}</td>
                                     <td>
                                         <a href="{{ route('appointment.edit', $appointment->id) }}" class="btn btn-custom">Edit</a>
