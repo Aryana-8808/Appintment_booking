@@ -68,6 +68,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function() {
     Route::get('/bookings', [BookingsController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/create', [BookingsController::class, 'create'])->name('bookings.create');
     Route::post('/bookings', [BookingsController::class, 'store'])->name('bookings.store');
+    Route::post('/bookings/waitlist', [BookingsController::class, 'addToWaitlist'])->name('bookings.addToWaitlist');
     Route::get('/dashboard', [BookingsController::class, 'appointment'])->name('bookings.appointment');
     Route::get('/bookings/{id}/edit', [BookingsController::class, 'edit'])->name('appointment.edit');
     Route::put('/bookings/{appointment}', [BookingsController::class, 'update'])->name('appointment.update');

@@ -175,7 +175,11 @@
                                 <tr>
                                     <td>{{ $appointment->id }}</td>
                                     <td>{{ $appointment->name }}</td>
-                                    <td>{{ $appointment->appointment_date }}</td>
+                                    <td>{{ $appointment->appointment_date }}
+																		@if($appointment->waitlist)
+																		(waitlist)
+																		@endif
+																		</td>
                                     <td>{{ $appointment->phone }}</td>
                                     <td>{{ $appointment->duration }}</td>
                                     {{-- <td>{{ $appointment->status }}</td> --}}

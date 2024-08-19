@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Booking;
+use App\Models\User;
+use App\Models\AppointmentSlot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -17,12 +19,12 @@ class AdminBookingsController extends Controller
         return view('admin.AdminDashboard', compact('appointments'));
     }
 
-        public function create()
+    public function create()
     {
         return view('admin.AdminCreate');
     }
 
-    
+
     // Store a newly created appointment in the database
     public function store(Request $request)
     {
@@ -35,17 +37,17 @@ class AdminBookingsController extends Controller
             'status' => 'required|in:pending,confirmed,completed,cancelled',
             'description' => 'nullable|string|max:255',
         ];
-    
+
         // Validate the request
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         // Retrieve admin ID
         $adminId = auth('admin')->id();
-    
+
         // Create new booking
         $booking = new Booking();
         $booking->user_id = $adminId; // Assign admin's ID to user_id
@@ -56,12 +58,12 @@ class AdminBookingsController extends Controller
         $booking->status = $request->input('status');
         $booking->description = $request->input('description');
         $booking->save();
-    
+
         // Redirect with success message
         return redirect()->route('admin.AdminDashboard')->with('success', 'Appointment created successfully.');
     }
-    
-    
+
+
     // Show the form to edit an appointment
     public function edit($id)
     {
@@ -84,7 +86,7 @@ class AdminBookingsController extends Controller
             'duration' => 'required|integer|min:15',
             'description' => 'nullable|string|max:255',
         ];
-        
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -107,8 +109,22 @@ class AdminBookingsController extends Controller
     public function destroy($id)
     {
         $booking = Booking::findOrFail($id);
+        $appointment = AppointmentSlot::findOrFail($booking->slot_id);
         $booking->delete();
-
-        return redirect()->route('admin.AdminDashboard')->with('success', 'Appointment deleted successfully.');
+        // toggle appointment slot availability and notify waitlist users
+        $appointment->available = true;
+        $appointment->update();
+        // waitlist notify
+        $waitlists = Booking::where('appointment_id', $appointment->id)
+            ->where('waitlist', true)
+            ->get();
+        foreach ($waitlists as $waitlist) {
+            // Find the user by their ID
+            $user = User::find($waitlist->user_id);
+            if ($user) {
+                // Send the notification to the user
+            }
+            return redirect()->route('admin.AdminDashboard')->with('success', 'Appointment deleted successfully.');
+        }
     }
 }

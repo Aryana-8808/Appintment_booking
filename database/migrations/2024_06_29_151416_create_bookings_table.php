@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('phone');
             $table->text('description')->nullable();
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
+            $table->boolean('waitlist')->default(false);
             $table->dateTime('end_time')->nullable()->default(null);
             $table->timestamps();
             
             // Unique constraints
-            $table->unique(['appointment_date', 'end_time']);
             $table->unique(['user_id', 'appointment_date']);
         });
     }
